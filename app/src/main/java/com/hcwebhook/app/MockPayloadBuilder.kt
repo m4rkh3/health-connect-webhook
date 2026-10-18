@@ -273,6 +273,7 @@ object MockPayloadBuilder {
                             it.sodium?.let { s -> put("sodium_grams", s) }
                             it.dietaryFiber?.let { f -> put("dietary_fiber_grams", f) }
                             it.name?.let { n -> put("name", n) }
+                            it.mealType?.let { m -> put("meal_type", m) }
                             put("start_time", it.startTime.toString())
                             put("end_time", it.endTime.toString())
                             it.metadata?.let { meta -> putMetadata(meta) }
@@ -651,6 +652,13 @@ object MockPayloadBuilder {
                     meta.deviceType?.let { put("type", it) }
                 }
             }
+            if (meta.id.isNotEmpty()) put("id", meta.id)
+            meta.clientRecordId?.let { put("client_record_id", it) }
+            if (meta.clientRecordVersion != 0L) put("client_record_version", meta.clientRecordVersion)
+            meta.lastModifiedTime?.let { put("last_modified_time", it.toString()) }
+            meta.zoneOffsetSeconds?.let { put("zone_offset_seconds", it) }
+            meta.startZoneOffsetSeconds?.let { put("start_zone_offset_seconds", it) }
+            meta.endZoneOffsetSeconds?.let { put("end_zone_offset_seconds", it) }
         }
     }
 }

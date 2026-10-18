@@ -145,6 +145,22 @@ Only types the user enabled **and** granted Health Connect permission for are re
 
 ## Arrays and record shapes
 
+### `metadata` — object on every record
+
+Each record carries Health Connect's provenance and identity, with the same field names as the protobuf `RecordMetadata` message. Fields are omitted when Health Connect has no value.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `data_origin` | string | Package name of the app that wrote the record (e.g. `com.myfitnesspal.android`). |
+| `recording_method` | string | `actively_recorded`, `automatically_recorded`, `manual_entry` or `unknown`. |
+| `device` | object | `manufacturer`, `model`, `type` when known. |
+| `id` | string | Health Connect's record id. Stable across syncs: use it to deduplicate re-sent records and to apply edits. |
+| `client_record_id` | string | The writing app's own id for the record, when it set one. |
+| `client_record_version` | number | The writing app's version counter, when non-zero. |
+| `last_modified_time` | string | When the record was last written or edited (ISO-8601 UTC). |
+| `zone_offset_seconds` | number | UTC offset of an instant record (e.g. weight). |
+| `start_zone_offset_seconds`, `end_zone_offset_seconds` | number | UTC offsets of an interval record (e.g. nutrition, steps), for local-day bucketing on the server. |
+
 Keys use **snake_case**. Numeric types follow Kotlin serialization to JSON (e.g. integers as JSON numbers, doubles as JSON numbers).
 
 ### Sample resolution (heart rate and related series)
@@ -387,6 +403,7 @@ Health Connect can store multiple samples per interval; with Full resolution the
 | `sodium_grams` | number | no | |
 | `dietary_fiber_grams` | number | no | |
 | `name` | string | no | Meal or item label when provided. |
+| `meal_type` | string | no | `breakfast`, `lunch`, `dinner` or `snack` when the writing app set one. Omitted for unknown meal types and for merged (bucketed or daily) records. Apps such as MyFitnessPal write one unnamed record per meal with identical times, so this is what tells the meals apart. |
 
 ### `basal_metabolic_rate` — array of objects
 

@@ -15,8 +15,8 @@ import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import java.time.Instant
 
-/** Emit a record's Health Connect provenance as a nested "metadata" object. */
-private fun JsonObjectBuilder.putRecordMetadata(meta: RecordMetadata) {
+/** Emit a record's Health Connect provenance and identity as a nested "metadata" object (same fields as the protobuf RecordMetadata). */
+internal fun JsonObjectBuilder.putRecordMetadata(meta: RecordMetadata) {
     putJsonObject("metadata") {
         put("data_origin", meta.dataOrigin)
         put("recording_method", meta.recordingMethod)
@@ -27,6 +27,13 @@ private fun JsonObjectBuilder.putRecordMetadata(meta: RecordMetadata) {
                 meta.deviceType?.let { put("type", it) }
             }
         }
+        if (meta.id.isNotEmpty()) put("id", meta.id)
+        meta.clientRecordId?.let { put("client_record_id", it) }
+        if (meta.clientRecordVersion != 0L) put("client_record_version", meta.clientRecordVersion)
+        meta.lastModifiedTime?.let { put("last_modified_time", it.toString()) }
+        meta.zoneOffsetSeconds?.let { put("zone_offset_seconds", it) }
+        meta.startZoneOffsetSeconds?.let { put("start_zone_offset_seconds", it) }
+        meta.endZoneOffsetSeconds?.let { put("end_zone_offset_seconds", it) }
     }
 }
 
@@ -837,6 +844,7 @@ class SyncManager(private val context: Context) {
                         it.sodium?.let { sodium -> put("sodium_grams", sodium) }
                         it.dietaryFiber?.let { fiber -> put("dietary_fiber_grams", fiber) }
                         it.name?.let { name -> put("name", name) }
+                        it.mealType?.let { mealType -> put("meal_type", mealType) }
                         put("start_time", it.startTime.toString())
                         put("end_time", it.endTime.toString())
                         it.metadata?.let { meta -> putRecordMetadata(meta) }
