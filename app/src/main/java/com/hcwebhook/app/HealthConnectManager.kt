@@ -383,8 +383,17 @@ data class NutritionData(
     val name: String?,
     val startTime: Instant,
     val endTime: Instant,
-    val metadata: RecordMetadata? = null
+    val metadata: RecordMetadata? = null,
+    val mealType: String? = null,
 )
+
+internal fun mealTypeName(mealType: Int): String? = when (mealType) {
+    MealType.MEAL_TYPE_BREAKFAST -> "breakfast"
+    MealType.MEAL_TYPE_LUNCH -> "lunch"
+    MealType.MEAL_TYPE_DINNER -> "dinner"
+    MealType.MEAL_TYPE_SNACK -> "snack"
+    else -> null
+}
 
 data class BasalMetabolicRateData(
     val watts: Double,
@@ -2005,6 +2014,7 @@ class HealthConnectManager(private val context: Context) {
                     startTime = it.startTime,
                     endTime = it.endTime,
                     metadata = it.toRecordMetadata(startZoneOffset = it.startZoneOffset, endZoneOffset = it.endZoneOffset),
+                    mealType = mealTypeName(it.mealType),
                 )
             }
     }
