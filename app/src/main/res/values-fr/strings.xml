@@ -29,6 +29,7 @@
     <string name="onboarding_group_body_composition">Composition corporelle</string>
     <string name="onboarding_group_nutrition">Nutrition &amp; Hydratation</string>
     <string name="onboarding_group_cycle_tracking">Suivi du cycle</string>
+    <string name="onboarding_group_wellness">Bien-être</string>
     
     <string name="onboarding_privacy_title">Vos données, votre contrôle</string>
     <string name="onboarding_privacy_subtitle">Cette application est un transféreur transparent. Voici exactement comment vos données sont traitées :</string>
@@ -106,6 +107,8 @@
     <string name="dt_sexual_activity_rationale">Envoyez les enregistrements d\'activité sexuelle à votre webhook pour les corréler aux données du cycle et obtenir des informations sur la santé reproductive.</string>
     <string name="dt_basal_body_temp_name">Température basale</string>
     <string name="dt_basal_body_temp_rationale">Transmettez les mesures de température basale matinales pour détecter l\'ovulation, suivre les phases du cycle et soutenir la conscience de la fertilité.</string>
+    <string name="dt_mindfulness_name">Pleine conscience</string>
+    <string name="dt_mindfulness_rationale">Transmettez les séances de pleine conscience (méditation, respiration, etc.) et leur durée à votre webhook pour suivre votre routine de bien-être.</string>
     <string name="dt_hc_rationale">Health Connect to Webhook nécessite un accès à vos données de santé et d\’activité physique. Ces données sont utilisées strictement pour la fonctionnalité de base de l\’application : transmettre en toute sécurité les mesures de santé choisies directement à vos URL personnelles. Nous ne vendons ou ne partageons pas vos données. Seules les données choisies et configurées par vos soins seront demandées.</string>
     <string name="datatypes_granted_summary">%1$d autorisations sur %2$d accordées</string>
     <string name="datatypes_selected_summary">%1$d éléments sélectionnés pour la synchronisation</string>
@@ -238,6 +241,10 @@
 • Vous avez un contrôle total sur les types de données qui sont synchronisés et où ils sont envoyés.</string>
     <string name="about_settings_backup_title">Sauvegarde des paramètres</string>
     <string name="about_settings_backup_desc">Exportez ou importez vos URL de webhook, vos en-têtes et votre calendrier de synchronisation</string>
+    <string name="settings_timestamps_title">Horodatage du payload</string>
+    <string name="settings_timestamps_utc">UTC</string>
+    <string name="settings_timestamps_local">Heure locale</string>
+    <string name="settings_timestamps_desc">%1$s. Les heures ressemblent à %2$s et le payload contient \"timezone\": \"%3$s\". Ce changement peut casser les automatisations qui lisent les heures comme du texte.</string>
     <string name="about_action_export">Exporter</string>
     <string name="about_action_import">Importer</string>
     <string name="about_section_settings">Paramètres de l\'application</string>
